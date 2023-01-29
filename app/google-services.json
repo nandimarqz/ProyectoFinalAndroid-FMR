@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "839052965552",
+    "project_id": "contactplus-333e1",
+    "storage_bucket": "contactplus-333e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839052965552:android:472d78a0f0355107d1ed75",
+        "android_client_info": {
+          "package_name": "com.fernandomarquezrodriguez.contactplusfmr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839052965552-mr0sv1alddj93f5qovklue2csbhtek0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg5J9mn1otRTI98s4yud_xipQTCyYqLHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839052965552-mr0sv1alddj93f5qovklue2csbhtek0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

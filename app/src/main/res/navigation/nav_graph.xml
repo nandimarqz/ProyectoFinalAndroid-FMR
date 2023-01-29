@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.fernandomarquezrodriguez.contactplusfmr.ui.AuthFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_auth">
+
+        <action
+            android:id="@+id/action_authFragment_to_singupFragmnet"
+            app:destination="@id/singupFragment" />
+
+        <action
+            android:id="@+id/action_authFragment_to_mainFragmnet"
+            app:destination="@id/mainfragment" />
+    </fragment>
+    <fragment
+
+        android:id="@+id/singupFragment"
+        android:name="com.fernandomarquezrodriguez.contactplusfmr.ui.SingUpFragment"
+        android:label="fragment_singup"
+        tools:layout="@layout/fragment_singup">
+
+        <action
+            android:id="@+id/action_signUpFragment_to_mainFragmnet"
+            app:destination="@id/mainfragment" />
+    </fragment>
+
+    <fragment
+
+        android:id="@+id/mainfragment"
+        android:name="com.fernandomarquezrodriguez.contactplusfmr.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+
+    <action
+        android:id="@+id/action_mainFragment_to_detailFragmnet"
+        app:destination="@id/detailfragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_addContactFragmnet"
+            app:destination="@id/addcontactfragment" />
+    </fragment>
+
+    <fragment
+
+        android:id="@+id/detailfragment"
+        android:name="com.fernandomarquezrodriguez.contactplusfmr.ui.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+
+        <action
+            android:id="@+id/action_detailFragment_to_editFragment"
+            app:destination="@id/editfragment" />
+    </fragment>
+
+    <fragment
+
+        android:id="@+id/editfragment"
+        android:name="com.fernandomarquezrodriguez.contactplusfmr.ui.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit">
+
+    </fragment>
+    <fragment
+
+        android:id="@+id/addcontactfragment"
+        android:name="com.fernandomarquezrodriguez.contactplusfmr.ui.AddContactFragment"
+        android:label="fragment_addContact"
+        tools:layout="@layout/fragment_addcontact">
+
+        <action
+            android:id="@+id/action_addContactFragment_to_mainFragmnet"
+            app:destination="@id/mainfragment" />
+    </fragment>
+
+</navigation>
