@@ -28,8 +28,8 @@ internal class MainViewModel(activeUser : String) : ViewModel() {
     }
 
     //Realiza la navegacion con una receta pasada por parametro
-    fun navigateTo(recipe: Contact) {
-        _state.value = _state.value?.copy(navigateTo = recipe)
+    fun navigateTo(contact: Contact) {
+        _state.value = _state.value?.copy(navigateTo = contact)
     }
 
     //Finaliza la navegacion

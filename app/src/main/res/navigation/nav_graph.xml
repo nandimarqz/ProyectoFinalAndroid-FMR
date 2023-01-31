@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_detailFragment_to_editFragment"
             app:destination="@id/editfragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_detailFragment_to_mainFragmnet"-->
+<!--            app:destination="@id/mainfragment" />-->
     </fragment>
 
     <fragment

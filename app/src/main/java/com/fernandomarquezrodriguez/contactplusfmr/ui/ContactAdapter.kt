@@ -67,7 +67,7 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                 coleccion =
-                    contacts.stream().filter{ i-> i.firstSurname.lowercase(Locale.getDefault()).contains(txtSearchView.lowercase(Locale.getDefault()))}.toList() as MutableList<Contact>
+                    contacts.stream().filter{ i-> i.name.lowercase(Locale.getDefault()).contains(txtSearchView.lowercase(Locale.getDefault()))}.toList() as MutableList<Contact>
                 contacts = coleccion
 
             } else {

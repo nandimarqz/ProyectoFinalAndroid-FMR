@@ -53,6 +53,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     bundleOf(SELECTED_CONTACT to it)
                 )
 
+                viewModel.onNavigateDone()
 
             }
 
