@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fernandomarquezrodriguez.contactplusfmr.R
 import com.fernandomarquezrodriguez.contactplusfmr.databinding.ContactViewBinding
+import com.fernandomarquezrodriguez.contactplusfmr.model.bd.CloudStorage
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.Contact
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import kotlin.streams.toList
 
@@ -35,12 +37,12 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
         holder.bind(contacts[position])
 
         //Guarda a la persona en una variable
-        val person = contacts[position]
+        val contact = contacts[position]
 
         //Pone un escuchador de eventos para cuando se haga un click
         // en contacto llama a la funcion que se pasa por parametro a esta misma clase
         holder.itemView.setOnClickListener {
-            listener(person)
+            listener(contact)
 
         }
 
@@ -110,8 +112,14 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
 
             binding.nombre.text = fullName
 
+//            if(contact.imageRef.isNotEmpty() && !contact.imageRef.equals("")){
+//
+//                val usuarioActivo = FirebaseAuth.getInstance().currentUser?.email
+//                val uriImg = CloudStorage.getUrlFile(usuarioActivo!!, contact.imageRef)
+//
+//                Glide.with(binding.imgContacto).load(uriImg).into(binding.imgContacto)
+//            }
 
-//            Glide.with(binding.imageView).load(recipe.image).into(binding.imageView)
 
         }
 

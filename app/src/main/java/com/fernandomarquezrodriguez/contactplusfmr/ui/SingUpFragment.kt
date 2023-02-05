@@ -22,7 +22,12 @@ class SingUpFragment : Fragment(R.layout.fragment_singup) {
 
             btnRegistarse.setOnClickListener {
 
-                if (emailUsr.text.isNotEmpty() && inputContrasenaReg.text.isNotEmpty()) {
+                if (emailUsr.text.isNotEmpty() && inputContrasenaReg.text.isNotEmpty()
+                    && nombreUsr.text.isNotEmpty() && apellido1Usr.text.isNotEmpty()
+                    && apellido2Usr.text.isNotEmpty() && usuario.text.isNotEmpty()
+                    && telefonoUsr.text.isNotEmpty() && instagramUsr.text.isNotEmpty()
+                    && githubUsr.text.isNotEmpty() && twitterUsr.text.isNotEmpty()
+                    && tiktokUsr.text.isNotEmpty()) {
 
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                         emailUsr.text.toString(),
@@ -61,6 +66,15 @@ class SingUpFragment : Fragment(R.layout.fragment_singup) {
 
 
                         }
+                }else{
+
+                    val alert = AlertDialog.Builder(requireView().context)
+                    alert.setTitle("Error")
+                    alert.setMessage("Alguno de los campos no estan rellenos")
+                    alert.setPositiveButton("Aceptar", null)
+                    val dialog: AlertDialog = alert.create()
+                    dialog.show()
+
                 }
 
             }

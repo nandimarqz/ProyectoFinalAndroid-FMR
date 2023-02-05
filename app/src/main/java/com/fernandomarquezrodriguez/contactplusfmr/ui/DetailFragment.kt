@@ -87,6 +87,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
             }
 
+            //TODO funcionalidad de las redes sociales telefono email
 
         }
     }

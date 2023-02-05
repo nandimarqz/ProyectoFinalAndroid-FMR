@@ -26,6 +26,8 @@ object UserDao {
         FirebaseFirestore.getInstance().collection(COLLECTION_USER)
             .document(user.email)
             .set(userMap)
+
+
         ContactDao.addContact(
             Contact(
                 user.name,

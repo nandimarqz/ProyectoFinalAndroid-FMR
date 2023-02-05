@@ -14,4 +14,5 @@ data class Contact(
     val gitHubUser: String = "",
     val twitterUser: String = "",
     val tikTokUser: String = "",
+    val imageRef :String = ""
 ) : Parcelable

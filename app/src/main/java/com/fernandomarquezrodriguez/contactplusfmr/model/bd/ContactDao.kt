@@ -17,7 +17,8 @@ object ContactDao {
             "instagramUser" to contact.instagramUser,
             "gitHubUser" to contact.gitHubUser,
             "twitterUser" to contact.twitterUser,
-            "tikTokUser" to contact.tikTokUser
+            "tikTokUser" to contact.tikTokUser,
+            "imageRef" to contact.imageRef
         )
 
         FirebaseFirestore.getInstance()

@@ -31,5 +31,7 @@ class EditFragment  : Fragment(R.layout.fragment_edit) {
             tiktokContact.setText(contact.tikTokUser.toCharArray(),0,contact.tikTokUser.length)
 
         }
+
+        //TODO Realizar logica boton editar añadir boton de borrado al menu
     }
 }

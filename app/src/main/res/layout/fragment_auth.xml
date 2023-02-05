@@ -15,7 +15,7 @@
         android:background="@color/white"
         android:backgroundTint="@color/white"
         android:ems="10"
-        android:hint="fernando o fernando@gmail.com"
+        android:hint="fernando@gmail.com"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginBottom="4dp"
-        android:text="Usuario o Correo Electronico"
+        android:text="Correo Electronico"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/inputUsr"
