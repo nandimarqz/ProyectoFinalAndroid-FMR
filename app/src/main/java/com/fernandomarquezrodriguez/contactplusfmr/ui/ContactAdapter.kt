@@ -112,13 +112,13 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
 
             binding.nombre.text = fullName
 
-//            if(contact.imageRef.isNotEmpty() && !contact.imageRef.equals("")){
-//
-//                val usuarioActivo = FirebaseAuth.getInstance().currentUser?.email
-//                val uriImg = CloudStorage.getUrlFile(usuarioActivo!!, contact.imageRef)
-//
-//                Glide.with(binding.imgContacto).load(uriImg).into(binding.imgContacto)
-//            }
+            if(contact.imageRef.isNotEmpty() && !contact.imageRef.equals("")){
+
+                val usuarioActivo = FirebaseAuth.getInstance().currentUser?.email
+                val uriImg = CloudStorage.getUrlFile(usuarioActivo!!, contact.imageRef)
+
+                Glide.with(binding.imgContacto).load(uriImg).into(binding.imgContacto)
+            }
 
 
         }
