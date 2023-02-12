@@ -48,6 +48,7 @@
                     android:id="@+id/imgContacto"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:scaleType="centerCrop"
                     android:background="@drawable/guest"
                     app:srcCompat="@drawable/guest"
                     tools:srcCompat="@drawable/guest" />

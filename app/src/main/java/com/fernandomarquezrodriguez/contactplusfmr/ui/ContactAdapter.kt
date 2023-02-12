@@ -114,10 +114,8 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
 
             if(contact.imageRef.isNotEmpty() && !contact.imageRef.equals("")){
 
-                val usuarioActivo = FirebaseAuth.getInstance().currentUser?.email
-                val uriImg = CloudStorage.getUrlFile(usuarioActivo!!, contact.imageRef)
+                Glide.with(binding.imgContacto).load(contact.imageRef).into(binding.imgContacto)
 
-                Glide.with(binding.imgContacto).load(uriImg).into(binding.imgContacto)
             }
 
 

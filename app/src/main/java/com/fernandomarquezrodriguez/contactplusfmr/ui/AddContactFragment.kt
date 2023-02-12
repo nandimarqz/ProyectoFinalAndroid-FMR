@@ -15,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fernandomarquezrodriguez.contactplusfmr.R
@@ -22,13 +24,15 @@ import com.fernandomarquezrodriguez.contactplusfmr.databinding.FragmentAddcontac
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.CloudStorage
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.Contact
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.ContactDao
+import kotlinx.coroutines.launch
 import java.io.File
 
 class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
 
-    private lateinit var binding : FragmentAddcontactBinding
-    lateinit var uriImagen : Uri
-
+    private lateinit var binding: FragmentAddcontactBinding
+    lateinit var uriImagenLocal: Uri
+    lateinit var uriImagen: Uri
+    private val viewModel: AddContactViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,45 +49,67 @@ class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
             btnCrear.setOnClickListener {
 
 
+                viewModel.viewModelScope.launch {
+                    if (nombreContact.text.isNotEmpty()
+                        && apellido1Contact.text.isNotEmpty()
+                        && apellido2Contact.text.isNotEmpty()
+                        && emailContact.text.isNotEmpty()
+                        && telefonoContact.text.isNotEmpty()
+                        && instagramContact.text.isNotEmpty()
+                        && githubContact.text.isNotEmpty()
+                        && twitterContact.text.isNotEmpty()
+                        && tiktokContact.text.isNotEmpty()
+                    ) {
+                        val contact: Contact
+                        if (uriImagenLocal != null) {
+
+
+                            uriImagen = CloudStorage.uploadFile(user, uriImagenLocal, context)!!
+                            contact = Contact(
+                                nombreContact.text.toString(),
+                                apellido1Contact.text.toString(),
+                                apellido2Contact.text.toString(),
+                                emailContact.text.toString(),
+                                telefonoContact.text.toString(),
+                                instagramContact.text.toString(),
+                                githubContact.text.toString(),
+                                twitterContact.text.toString(),
+                                tiktokContact.text.toString(),
+                                uriImagen.toString()
+                            )
+
+                        } else {
+
+                            contact = Contact(
+                                nombreContact.text.toString(),
+                                apellido1Contact.text.toString(),
+                                apellido2Contact.text.toString(),
+                                emailContact.text.toString(),
+                                telefonoContact.text.toString(),
+                                instagramContact.text.toString(),
+                                githubContact.text.toString(),
+                                twitterContact.text.toString(),
+                                tiktokContact.text.toString(),
+                                ""
+                            )
+
+                        }
 
 
 
-                if (nombreContact.text.isNotEmpty()
-                    && apellido1Contact.text.isNotEmpty()
-                    && apellido2Contact.text.isNotEmpty()
-                    && emailContact.text.isNotEmpty()
-                    && telefonoContact.text.isNotEmpty()
-                    && instagramContact.text.isNotEmpty()
-                    && githubContact.text.isNotEmpty()
-                    && twitterContact.text.isNotEmpty()
-                    && tiktokContact.text.isNotEmpty()
-                    && uriImagen.toString().isNotEmpty()){
+                        ContactDao.addContact(contact, user)
 
-                    CloudStorage.uploadFile(user, uriImagen,context)
-                    val contact = Contact(nombreContact.text.toString()
-                            , apellido1Contact.text.toString()
-                            , apellido2Contact.text.toString()
-                            , emailContact.text.toString()
-                            , telefonoContact.text.toString()
-                            , instagramContact.text.toString()
-                            , githubContact.text.toString()
-                            , twitterContact.text.toString()
-                            , tiktokContact.text.toString()
-                            , uriImagen.toString())
+                    } else {
 
-                    ContactDao.addContact(contact,user)
+                        showError()
 
-                }else{
-
-                    showError()
-
-                }
+                    }
 
                 findNavController().navigate(
                     R.id.action_addContactFragment_to_mainFragmnet,
                     bundleOf(MainFragment.ACTIVE_USER to user)
                 )
-
+                }
             }
 
         }
@@ -92,17 +118,16 @@ class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
     }
 
 
+    private fun requestPermission() {
 
-    private fun requestPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-
-            when{
+            when {
 
                 ContextCompat.checkSelfPermission(
                     this.requireContext(),
                     READ_EXTERNAL_STORAGE
-                ) == PERMISSION_GRANTED ->{
+                ) == PERMISSION_GRANTED -> {
 
                     pickPhotoFromGallery()
 
@@ -110,7 +135,7 @@ class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
                 else -> requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE)
             }
 
-        }else{
+        } else {
 
             pickPhotoFromGallery()
 
@@ -120,32 +145,36 @@ class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ){ isGranted ->
+    ) { isGranted ->
 
-        if(isGranted){
+        if (isGranted) {
             pickPhotoFromGallery()
-        }else{
+        } else {
 
-            Toast.makeText(this.requireContext(), "Necesitas aceptar los permisos ", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this.requireContext(),
+                "Necesitas aceptar los permisos ",
+                Toast.LENGTH_LONG
+            ).show()
 
         }
     }
 
     private val startForActivityGallery = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-    ){result->
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
 
-        if(result.resultCode == RESULT_OK){
+        if (result.resultCode == RESULT_OK) {
 
             val data = result.data?.data
             if (data != null) {
-                uriImagen = data
+                uriImagenLocal = data
             }
             Glide.with(binding.imageView).load(data).into(binding.imageView)
         }
     }
 
-    private fun pickPhotoFromGallery(){
+    private fun pickPhotoFromGallery() {
 
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"

@@ -4,4 +4,7 @@
     <item android:id="@+id/editContact"
         android:title="Editar Contacto"
         app:showAsAction="never" />
+    <item android:id="@+id/deleteContact"
+        android:title="Borrar Contacto"
+        app:showAsAction="never" />
 </menu>
