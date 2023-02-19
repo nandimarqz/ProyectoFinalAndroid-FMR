@@ -15,4 +15,13 @@ data class Contact(
     val twitterUser: String = "",
     val tikTokUser: String = "",
     val imageRef :String = ""
-) : Parcelable
+) : Parcelable{
+
+    fun getFullName():String{
+
+        return this.name.lowercase() + " " + this.firstSurname.lowercase() + " " + this.secondSurname.lowercase()
+
+    }
+
+}
+

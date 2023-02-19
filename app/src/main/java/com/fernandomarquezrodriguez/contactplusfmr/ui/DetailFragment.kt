@@ -45,19 +45,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//            val contact = arguments?.getParcelable<Contact>(SELECTED_CONTACT)!!
         val user = FirebaseAuth.getInstance().currentUser?.email
         FragmentDetailBinding.bind(view).apply {
 
             (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar3)
-//                nombreContacto.text = contact.name
-//                apellido1Contacto.text = contact.firstSurname
-//                Apellido2Contacto.text = contact.secondSurname
-//                emailContacto.text = contact.email
-//                instagramContacto.text = contact.instagramUser
-//                gitHubContacto.text = contact.gitHubUser
-//                twitterContacto.text = contact.twitterUser
-//                tiktokContacto.text = contact.tikTokUser
+
             viewModel.state.observe(viewLifecycleOwner) { state ->
 
                 state.contact?.let { contact ->
@@ -70,8 +62,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     gitHubContacto.text = contact.gitHubUser
                     twitterContacto.text = contact.twitterUser
                     tiktokContacto.text = contact.tikTokUser
+                    tlfnContactoTxt.text = contact.phone
 
-                    if(contact.imageRef.isNotEmpty() && !contact.imageRef.equals("")){
+                    if (contact.imageRef.isNotEmpty() && contact.imageRef != "") {
 
                         Glide.with(imgContacto).load(contact.imageRef).into(imgContacto)
 
@@ -90,7 +83,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                                 true
 
                             }
-                            R.id.deleteContact->{
+                            R.id.deleteContact -> {
 
                                 ContactDao.deleteContact(contact, user!!)
                                 findNavController().navigate(
@@ -114,9 +107,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                         try {
                             startActivity(intent)
-                        }catch (e: ActivityNotFoundException){
+                        } catch (e: ActivityNotFoundException) {
 
-                            startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://instagram.com/${contact.instagramUser}")))
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://instagram.com/${contact.instagramUser}")
+                                )
+                            )
 
                         }
 
@@ -124,10 +122,30 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                     emailContacto.setOnClickListener {
 
-                        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"+contact.email))
+                        val intent =
+                            Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + contact.email))
 
                         startActivity(intent)
 
+                    }
+
+                    cardBtnEmail.setOnClickListener {
+
+                        val intent =
+                            Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + contact.email))
+
+                        startActivity(intent)
+
+                    }
+
+                    tlfnContactoTxt.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + contact.phone))
+                        startActivity(intent)
+                    }
+
+                    cardBtnLlamar.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + contact.phone))
+                        startActivity(intent)
                     }
 
                     gitHubContacto.setOnClickListener {
@@ -138,9 +156,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                         try {
                             startActivity(intent)
-                        }catch (e: ActivityNotFoundException){
+                        } catch (e: ActivityNotFoundException) {
 
-                            startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://github.com/${contact.gitHubUser}")))
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://github.com/${contact.gitHubUser}")
+                                )
+                            )
 
                         }
 
@@ -154,9 +177,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                         try {
                             startActivity(intent)
-                        }catch (e: ActivityNotFoundException){
+                        } catch (e: ActivityNotFoundException) {
 
-                            startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://tiktok.com/@${contact.tikTokUser}")))
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://tiktok.com/@${contact.tikTokUser}")
+                                )
+                            )
 
                         }
 
@@ -170,20 +198,21 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
                         try {
                             startActivity(intent)
-                        }catch (e: ActivityNotFoundException){
+                        } catch (e: ActivityNotFoundException) {
 
-                            startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://twitter.com/${contact.twitterUser}")))
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://twitter.com/${contact.twitterUser}")
+                                )
+                            )
 
                         }
 
                     }
 
                 }
-
-
             }
-            //TODO funcionalidad de las redes sociales telefono email
-
         }
     }
 

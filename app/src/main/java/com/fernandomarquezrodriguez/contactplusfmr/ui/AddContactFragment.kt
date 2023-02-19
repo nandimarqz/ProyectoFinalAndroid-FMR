@@ -30,8 +30,8 @@ import java.io.File
 class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
 
     private lateinit var binding: FragmentAddcontactBinding
-    lateinit var uriImagenLocal: Uri
-    lateinit var uriImagen: Uri
+    var uriImagenLocal: Uri? = null
+    var uriImagen: Uri? = null
     private val viewModel: AddContactViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +64,7 @@ class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
                         if (uriImagenLocal != null) {
 
 
-                            uriImagen = CloudStorage.uploadFile(user, uriImagenLocal, context)!!
+                            uriImagen = CloudStorage.uploadFile(user, uriImagenLocal!!, context)!!
                             contact = Contact(
                                 nombreContact.text.toString(),
                                 apellido1Contact.text.toString(),
@@ -114,7 +114,6 @@ class AddContactFragment : Fragment(R.layout.fragment_addcontact) {
 
         }
 
-        //TODO como añadir imagenes a fireauth
     }
 
 

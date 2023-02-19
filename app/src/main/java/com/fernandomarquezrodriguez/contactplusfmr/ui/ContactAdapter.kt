@@ -12,6 +12,8 @@ import com.fernandomarquezrodriguez.contactplusfmr.databinding.ContactViewBindin
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.CloudStorage
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.Contact
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.streams.toList
 
@@ -69,13 +71,13 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
                 coleccion =
-                    contacts.stream().filter{ i-> i.name.lowercase(Locale.getDefault()).contains(txtSearchView.lowercase(Locale.getDefault()))}.toList() as MutableList<Contact>
+                    contacts.stream().filter{ i-> i.getFullName().contains(txtSearchView.lowercase(Locale.getDefault()))}.toList() as MutableList<Contact>
                 contacts = coleccion
 
             } else {
                 contacts.forEach {contact ->
 
-                    if(contact.name.lowercase(Locale.getDefault()).contains(txtSearchView.lowercase(Locale.getDefault()))){
+                    if(contact.getFullName().contains(txtSearchView.lowercase(Locale.getDefault()))){
 
                         coleccion.add(contact)
 
@@ -108,17 +110,22 @@ class ContactAdapter(val listener : (Contact) ->Unit): RecyclerView.Adapter<Cont
          */
         fun bind(contact: Contact ){
 
-            val fullName = " " + contact.name + " " + contact.firstSurname + " " + contact.secondSurname
+            if(contact.email.equals(Firebase.auth.currentUser?.email)){
 
-            binding.nombre.text = fullName
+                binding.nombre.text = "Tu"
+
+
+            }else{
+
+                binding.nombre.text = contact.getFullName()
+
+            }
 
             if(contact.imageRef.isNotEmpty() && !contact.imageRef.equals("")){
 
                 Glide.with(binding.imgContacto).load(contact.imageRef).into(binding.imgContacto)
 
             }
-
-
         }
 
 

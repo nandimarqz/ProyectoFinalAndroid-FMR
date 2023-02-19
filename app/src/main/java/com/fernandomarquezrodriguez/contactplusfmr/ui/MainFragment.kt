@@ -6,6 +6,9 @@ import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.fernandomarquezrodriguez.contactplusfmr.R
 import com.fernandomarquezrodriguez.contactplusfmr.databinding.FragmentMainBinding
@@ -13,6 +16,8 @@ import com.fernandomarquezrodriguez.contactplusfmr.model.bd.User
 import com.fernandomarquezrodriguez.contactplusfmr.ui.DetailFragment.Companion.SELECTED_CONTACT
 import com.fernandomarquezrodriguez.trabajo1trimestre.ui.main.MainViewModel
 import com.fernandomarquezrodriguez.trabajo1trimestre.ui.main.MainViewModel.MainViewModelFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -38,13 +43,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         viewModel.state.observe(viewLifecycleOwner){ state ->
 
-            state.contacts?.let {contacts->
+           lifecycleScope.launch {
+               repeatOnLifecycle(Lifecycle.State.STARTED){
 
-                adapter.contacts = contacts
-                adapter.originalContacts = contacts
-                adapter.notifyDataSetChanged()
+                   state.contacts?.collect(){
 
-            }
+                       adapter.contacts = it
+                       adapter.originalContacts = it
+                       adapter.notifyDataSetChanged()
+                   }
+
+               }
+           }
 
             state.navigateTo?.let {
 

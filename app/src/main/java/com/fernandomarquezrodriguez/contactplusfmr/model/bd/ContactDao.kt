@@ -2,6 +2,9 @@ package com.fernandomarquezrodriguez.contactplusfmr.model.bd
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.snapshots
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 
 object ContactDao {
@@ -85,6 +88,15 @@ object ContactDao {
 
                 Log.d(COLLECTION_CONTACS, it.toString())
 
+            }
+
+    }
+
+    fun getFlow(email:String): Flow<List<Contact>>{
+        return FirebaseFirestore.getInstance()
+            .collection(UserDao.COLLECTION_USER).document(email)
+            .collection(COLLECTION_CONTACS).snapshots().map { snapshot ->
+                snapshot.toObjects(Contact::class.java)
             }
 
     }

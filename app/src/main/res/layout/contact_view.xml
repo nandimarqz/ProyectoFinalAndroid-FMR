@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="start"
-    android:layout_marginBottom="5dp"
-    android:background="@color/white"
+    android:layout_marginBottom="10dp"
+    android:background="#E0E0DE"
+    android:backgroundTint="#E0E0DE"
+    app:cardBackgroundColor="#E0E0DE"
     app:cardCornerRadius="20dp"
     app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="#E0E0DE"
+        android:backgroundTint="#E0E0DE">
 
         <TextView
             android:id="@+id/nombre"
@@ -22,8 +25,10 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:background="@color/white"
+            android:backgroundTint="#E0E0DE"
             android:text="Nombre Contacto"
             android:textAlignment="textStart"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cardImg"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,8 +53,8 @@
                     android:id="@+id/imgContacto"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/guest"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/guest"
                     tools:srcCompat="@drawable/guest" />
             </LinearLayout>

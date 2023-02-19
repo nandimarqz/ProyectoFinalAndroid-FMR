@@ -5,6 +5,7 @@ import com.fernandomarquezrodriguez.contactplusfmr.model.bd.Contact
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.ContactDao
 import com.fernandomarquezrodriguez.contactplusfmr.model.bd.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 internal class MainViewModel(activeUser : String) : ViewModel() {
@@ -20,7 +21,7 @@ internal class MainViewModel(activeUser : String) : ViewModel() {
         //La ejecucion se va realizar por el hilo principal
         viewModelScope.launch(Dispatchers.Main) {
 
-            val contacts =  ContactDao.getAllContacts(activeUser)
+            val contacts =  ContactDao.getFlow(activeUser)
 
             //Se iguala los contactos
             _state.value = _state.value?.copy(contacts = contacts, activeUser = activeUser)
@@ -40,7 +41,7 @@ internal class MainViewModel(activeUser : String) : ViewModel() {
     data class UiState(
 
         val activeUser: String?=null,
-        val contacts: List<Contact>? = null,
+        val contacts: Flow<List<Contact>>? = null,
         val navigateTo: Contact? = null
     )
 

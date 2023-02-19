@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="15dp"
         >
 
         <androidx.appcompat.widget.Toolbar
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:text="Tik Tok"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="44dp"
+            android:textStyle="bold"
             android:text="Twitter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gitHubContacto" />
@@ -68,6 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:textStyle="bold"
             android:layout_marginTop="36dp"
             android:text="GitHub"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,10 +92,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="36dp"
+            android:textStyle="bold"
+            android:layout_marginTop="28dp"
             android:text="Instagram"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailContacto" />
+            app:layout_constraintTop_toBottomOf="@+id/tlfnContactoTxt" />
 
         <TextView
             android:id="@+id/instagramContacto"
@@ -108,6 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:text="Segundo Apellido"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,18 +146,11 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="36dp"
             android:text="Email"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Apellido2Contacto" />
 
-        <TextView
-            android:id="@+id/labelNombreContacto2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="32dp"
-            android:text="Nombre"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardImg" />
+
 
         <TextView
             android:id="@+id/apellido1Contacto"
@@ -190,21 +189,23 @@
                 android:layout_width="152dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
+                app:srcCompat="@drawable/guest"
                 tools:layout_editor_absoluteX="170dp"
                 tools:layout_editor_absoluteY="91dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@drawable/guest" />
 
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/labelApellido1Contacto"
+            android:id="@+id/labelNombreContacto2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="32dp"
-            android:text="Primer Apellido"
+            android:text="Nombre"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nombreContacto" />
+            app:layout_constraintTop_toBottomOf="@+id/cardBtnLlamar" />
 
         <TextView
             android:id="@+id/nombreContacto"
@@ -215,6 +216,120 @@
             android:text="NombreTxT"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelNombreContacto2" />
+
+        <TextView
+            android:id="@+id/labelApellido1Contacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:textStyle="bold"
+            android:text="Primer Apellido"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nombreContacto" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBtnLlamar"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="32dp"
+            android:background="#FFFBE9"
+            app:cardBackgroundColor="#E0E0DE"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardImg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/cardBtnLlamar"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/phoneIcon"
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/phoneicone"
+                    tools:srcCompat="@drawable/phoneicone" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Llamar"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBtnEmail"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="32dp"
+            android:background="#FFFBE9"
+            app:cardBackgroundColor="#E0E0DE"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintStart_toEndOf="@+id/cardBtnLlamar"
+            app:layout_constraintTop_toBottomOf="@+id/cardImg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/cardBtnLlamar"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/emailIcon"
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/email_icon"
+                    tools:srcCompat="@drawable/email_icon" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Correo"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+        <TextView
+            android:id="@+id/tlfnContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            android:text="Telefono"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailContacto" />
+
+        <TextView
+            android:id="@+id/tlfnContactoTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:text="telefonotxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tlfnContacto" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

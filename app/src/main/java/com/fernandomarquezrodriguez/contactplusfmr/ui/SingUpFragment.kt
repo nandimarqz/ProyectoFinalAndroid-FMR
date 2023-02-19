@@ -22,51 +22,52 @@ class SingUpFragment : Fragment(R.layout.fragment_singup) {
 
             btnRegistarse.setOnClickListener {
 
-                if (emailUsr.text.isNotEmpty() && inputContrasenaReg.text.isNotEmpty()
-                    && nombreUsr.text.isNotEmpty() && apellido1Usr.text.isNotEmpty()
-                    && apellido2Usr.text.isNotEmpty() && usuario.text.isNotEmpty()
-                    && telefonoUsr.text.isNotEmpty() && instagramUsr.text.isNotEmpty()
-                    && githubUsr.text.isNotEmpty() && twitterUsr.text.isNotEmpty()
-                    && tiktokUsr.text.isNotEmpty()) {
+                if (emailUsr.text.isNotEmpty() && inputContrasenaReg.text.isNotEmpty() && nombreUsr.text.isNotEmpty() && apellido1Usr.text.isNotEmpty() && apellido2Usr.text.isNotEmpty() && usuario.text.isNotEmpty() && telefonoUsr.text.isNotEmpty() && instagramUsr.text.isNotEmpty() && githubUsr.text.isNotEmpty() && twitterUsr.text.isNotEmpty() && tiktokUsr.text.isNotEmpty()) {
 
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                        emailUsr.text.toString(),
-                        inputContrasenaReg.text.toString()
-                    )
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
+                    if (inputContrasenaReg.length() >= 6) {
+                        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                            emailUsr.text.toString(), inputContrasenaReg.text.toString()
+                        ).addOnCompleteListener {
+                                if (it.isSuccessful) {
 
-                                val user = User(
-                                    nombreUsr.text.toString(),
-                                    apellido1Usr.text.toString(),
-                                    apellido2Usr.text.toString(),
-                                    usuario.text.toString(),
-                                    inputContrasenaReg.text.toString(),
-                                    emailUsr.text.toString(),
-                                    telefonoUsr.text.toString(),
-                                    instagramUsr.text.toString(),
-                                    githubUsr.text.toString(),
-                                    twitterUsr.text.toString(),
-                                    tiktokUsr.text.toString()
-                                )
+                                    val user = User(
+                                        nombreUsr.text.toString(),
+                                        apellido1Usr.text.toString(),
+                                        apellido2Usr.text.toString(),
+                                        usuario.text.toString(),
+                                        inputContrasenaReg.text.toString(),
+                                        emailUsr.text.toString(),
+                                        telefonoUsr.text.toString(),
+                                        instagramUsr.text.toString(),
+                                        githubUsr.text.toString(),
+                                        twitterUsr.text.toString(),
+                                        tiktokUsr.text.toString()
+                                    )
 
-                                UserDao.addUser(user)
+                                    UserDao.addUser(user)
 
-                                findNavController().navigate(
-                                    R.id.action_signUpFragment_to_mainFragmnet,
-                                    bundleOf(MainFragment.ACTIVE_USER to emailUsr.text.toString())
-                                )
-                            } else {
+                                    findNavController().navigate(
+                                        R.id.action_signUpFragment_to_mainFragmnet,
+                                        bundleOf(MainFragment.ACTIVE_USER to emailUsr.text.toString())
+                                    )
+                                } else {
 
-                                showError()
-                                Log.d(UserDao.COLLECTION_USER, it.exception.toString())
+                                    showError()
+                                    Log.d(UserDao.COLLECTION_USER, it.exception.toString())
+
+                                }
+
 
                             }
 
+                    }else{
+
+                        showPasswdError()
+
+                    }
 
 
-                        }
-                }else{
+                } else {
 
                     val alert = AlertDialog.Builder(requireView().context)
                     alert.setTitle("Error")
@@ -89,6 +90,16 @@ class SingUpFragment : Fragment(R.layout.fragment_singup) {
         val alert = AlertDialog.Builder(requireView().context)
         alert.setTitle("Error")
         alert.setMessage("Ha ocurrido un error registrando al usuario")
+        alert.setPositiveButton("Aceptar", null)
+        val dialog: AlertDialog = alert.create()
+        dialog.show()
+    }
+
+    private fun showPasswdError() {
+
+        val alert = AlertDialog.Builder(requireView().context)
+        alert.setTitle("Error")
+        alert.setMessage("La contraseña debe tener al menos 6 caracteres")
         alert.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = alert.create()
         dialog.show()
